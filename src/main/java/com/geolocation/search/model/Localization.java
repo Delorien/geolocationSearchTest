@@ -1,29 +1,26 @@
 package com.geolocation.search.model;
 
 public class Localization {
-	
-	private String endereco;
-	private String cidade;
+
+	private String adress;
+	private String city;
 	private Double latitude;
 	private Double longitude;
 
-	public Localization() {
+	public String getAdress() {
+		return adress;
 	}
 
-	public String getEndereco() {
-		return endereco;
+	public void setAdress(String adress) {
+		this.adress = adress;
 	}
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public String getCity() {
+		return city;
 	}
 
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public Double getLatitude() {
@@ -41,4 +38,5 @@ public class Localization {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
+
 }

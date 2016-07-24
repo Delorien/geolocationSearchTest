@@ -9,15 +9,15 @@ public class Place {
 	@Id
 	private String id;
 
-	private String nome;
+	private String name;
 	private Localization localization = new Localization();
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Localization getLocalization() {
