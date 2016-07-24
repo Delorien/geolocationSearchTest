@@ -1,4 +1,4 @@
-package com.geolocation.searchTest;
+package com.geolocation.search;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

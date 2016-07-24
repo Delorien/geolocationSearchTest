@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.geolocation</groupId>
-	<artifactId>searchTest</artifactId>
+	<artifactId>search</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -31,6 +31,10 @@
 			<artifactId>json-path</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -49,7 +53,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<repositories>
 		<repository>
 			<id>spring-releases</id>

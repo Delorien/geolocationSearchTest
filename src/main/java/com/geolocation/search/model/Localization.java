@@ -1,4 +1,4 @@
-package com.geolocation.searchTest.model;
+package com.geolocation.search.model;
 
 public class Localization {
 	
