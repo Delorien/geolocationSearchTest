@@ -4,8 +4,7 @@ public class Localization {
 
 	private String address;
 	private String city;
-	private Double latitude;
-	private Double longitude;
+	private Double[] coordinates;
 
 	public String getAddress() {
 		return address;
@@ -23,20 +22,12 @@ public class Localization {
 		this.city = city;
 	}
 
-	public Double getLatitude() {
-		return latitude;
+	public Double[] getCoordinates() {
+		return coordinates;
 	}
 
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
-
-	public Double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
+	public void setCoordinates(Double[] coordinates) {
+		this.coordinates = coordinates;
 	}
 
 }

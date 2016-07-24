@@ -18,9 +18,8 @@ public class PlaceController {
 	PlaceBusiness business;
 
 	@RequestMapping(value = "/place", method = RequestMethod.POST)
-	public Place add(@RequestBody Place place) {
-		business.add(place);
-		return place;
+	public APIMessage add(@RequestBody Place place) {
+		return business.add(place);
 	}
 
 	@RequestMapping(value = "/places", method = RequestMethod.GET)
