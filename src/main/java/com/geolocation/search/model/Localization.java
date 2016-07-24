@@ -2,17 +2,17 @@ package com.geolocation.search.model;
 
 public class Localization {
 
-	private String adress;
+	private String address;
 	private String city;
 	private Double latitude;
 	private Double longitude;
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getCity() {
