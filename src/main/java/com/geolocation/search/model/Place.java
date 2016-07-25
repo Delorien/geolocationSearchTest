@@ -12,6 +12,14 @@ public class Place {
 	private String name;
 	private Localization localization = new Localization();
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -27,5 +35,4 @@ public class Place {
 	public void setLocalization(Localization localization) {
 		this.localization = localization;
 	}
-
 }
