@@ -41,9 +41,9 @@ public class PlaceBusiness {
 		return new APIMessage(Status.SUCCESS, "Places registered successfully.", places);
 	}
 
-	public APIMessage update(String name, Place updatePlace) {
+	public APIMessage update(String id, Place updatePlace) {
 
-		Place place = repository.findByName(name);
+		Place place = repository.findOne(id);
 
 		if (!StringUtils.isEmpty(updatePlace.getAddress().getAddress())) {
 			place.getAddress().setAddress(updatePlace.getAddress().getAddress());
@@ -58,18 +58,18 @@ public class PlaceBusiness {
 		return new APIMessage(Status.SUCCESS, "Places updated successfully.", place);
 	}
 
-	public Place get(String name) {
-		return repository.findByName(name);
+	public Place get(String id) {
+		return repository.findOne(id);
 	}
 
 	public List<Place> listAll() {
 		return repository.findAll();
 	}
 
-	public List<Place> listByLocationNear(String name, Double raio) {
-		Place origin = repository.findByName(name);
+	public List<Place> listByLocationNear(String id, Double raio) {
+		Place origin = repository.findOne(id);
 		if (origin == null) {
-			throw new IllegalArgumentException("Could not find any place to the name provided: " + name);
+			throw new IllegalArgumentException("Could not find any place to the id provided: " + id);
 		}
 
 		return repository.findByLocationNear(origin.getLocation(), new Distance(raio, Metrics.KILOMETERS));

@@ -10,8 +10,6 @@ import com.geolocation.search.model.Place;
 
 public interface PlaceRepository extends MongoRepository<Place, String> {
 
-	Place findByName(String name);
-
 	List<Place> findByLocationNear(Point point, Distance maxDistance);
 
 }

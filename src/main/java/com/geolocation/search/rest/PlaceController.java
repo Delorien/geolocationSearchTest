@@ -28,14 +28,14 @@ public class PlaceController {
 		return business.add(places);
 	}
 
-	@RequestMapping(value = "/place/{name}", method = RequestMethod.PUT)
-	public APIMessage update(@PathVariable("name") String name, @RequestBody Place place) {
-		return business.update(name, place);
+	@RequestMapping(value = "/place/{id}", method = RequestMethod.PUT)
+	public APIMessage update(@PathVariable("id") String id, @RequestBody Place place) {
+		return business.update(id, place);
 	}
 
-	@RequestMapping(value = "/place/{name}", method = RequestMethod.GET)
-	public Place get(@PathVariable("name") String name) {
-		return business.get(name);
+	@RequestMapping(value = "/place/{id}", method = RequestMethod.GET)
+	public Place get(@PathVariable("id") String id) {
+		return business.get(id);
 	}
 
 	@RequestMapping(value = "/places", method = RequestMethod.GET)
@@ -43,8 +43,8 @@ public class PlaceController {
 		return business.listAll();
 	}
 
-	@RequestMapping(value = "/places/{name}/raio/{raio}", method = RequestMethod.GET)
-	public List<Place> listByLocationNear(@PathVariable("name") String name, @PathVariable("raio") Double raio) {
-		return business.listByLocationNear(name, raio);
+	@RequestMapping(value = "/places/{id}/raio/{raio}", method = RequestMethod.GET)
+	public List<Place> listByLocationNear(@PathVariable("id") String id, @PathVariable("raio") Double raio) {
+		return business.listByLocationNear(id, raio);
 	}
 }
