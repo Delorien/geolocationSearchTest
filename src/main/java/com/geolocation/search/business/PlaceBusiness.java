@@ -14,6 +14,7 @@ import com.geolocation.search.model.Place;
 import com.geolocation.search.rest.APIMessage;
 import com.geolocation.search.rest.APIMessage.Status;
 import com.geolocation.search.util.GeoApiHelper;
+import com.geolocation.search.validator.PlaceValidator;
 
 @Component
 public class PlaceBusiness {
@@ -24,9 +25,14 @@ public class PlaceBusiness {
 	@Autowired
 	GeoApiHelper geoApiHelper;
 
+	@Autowired
+	PlaceValidator validator;
+
 	public APIMessage add(Place place) {
 
 		place.setLocation(fillCoordinates(place));
+
+		validator.validateAdd(place);
 		repository.save(place);
 		return new APIMessage(Status.SUCCESS, "Place registered successfully.", place);
 	}
@@ -66,13 +72,13 @@ public class PlaceBusiness {
 		return repository.findAll();
 	}
 
-	public List<Place> listByLocationNear(String id, Double raio) {
+	public List<Place> listByLocationNear(String id, Double radius) {
 		Place origin = repository.findOne(id);
 		if (origin == null) {
 			throw new IllegalArgumentException("Could not find any place to the id provided: " + id);
 		}
 
-		return repository.findByLocationNear(origin.getLocation(), new Distance(raio, Metrics.KILOMETERS));
+		return repository.findByLocationNear(origin.getLocation(), new Distance(radius, Metrics.KILOMETERS));
 	}
 
 	private Point fillCoordinates(Place place) {

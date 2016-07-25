@@ -48,6 +48,13 @@
 			<artifactId>google-maps-services</artifactId>
 			<version>${google.maps.sdk.version}</version>
 		</dependency>
+
+		<!-- Java String Similarity -->
+		<dependency>
+			<groupId>info.debatty</groupId>
+			<artifactId>java-string-similarity</artifactId>
+			<version>0.13</version>
+		</dependency>
 	</dependencies>
 
 	<build>

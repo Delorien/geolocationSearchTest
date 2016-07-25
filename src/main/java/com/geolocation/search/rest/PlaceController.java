@@ -43,8 +43,8 @@ public class PlaceController {
 		return business.listAll();
 	}
 
-	@RequestMapping(value = "/places/{id}/raio/{raio}", method = RequestMethod.GET)
-	public List<Place> listByLocationNear(@PathVariable("id") String id, @PathVariable("raio") Double raio) {
-		return business.listByLocationNear(id, raio);
+	@RequestMapping(value = "/places/{id}/radius/{radius}", method = RequestMethod.GET)
+	public List<Place> listByLocationNear(@PathVariable("id") String id, @PathVariable("radius") Double radius) {
+		return business.listByLocationNear(id, radius);
 	}
 }
