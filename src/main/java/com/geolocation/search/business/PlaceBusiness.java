@@ -3,6 +3,9 @@ package com.geolocation.search.business;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -23,8 +26,7 @@ public class PlaceBusiness {
 
 	public APIMessage add(Place place) {
 
-		place.getLocalization().setCoordinates(fillCoordinates(place));
-
+		place.setLocation(fillCoordinates(place));
 		repository.save(place);
 		return new APIMessage(Status.SUCCESS, "Place registered successfully.", place);
 	}
@@ -32,7 +34,7 @@ public class PlaceBusiness {
 	public APIMessage add(List<Place> places) {
 
 		for (Place place : places) {
-			place.getLocalization().setCoordinates(fillCoordinates(place));
+			place.setLocation(fillCoordinates(place));
 			repository.save(place);
 		}
 
@@ -43,13 +45,13 @@ public class PlaceBusiness {
 
 		Place place = repository.findByName(name);
 
-		if (!StringUtils.isEmpty(updatePlace.getLocalization().getAddress())) {
-			place.getLocalization().setAddress(updatePlace.getLocalization().getAddress());
-			place.getLocalization().setCoordinates(fillCoordinates(place));
+		if (!StringUtils.isEmpty(updatePlace.getAddress().getAddress())) {
+			place.getAddress().setAddress(updatePlace.getAddress().getAddress());
+			place.setLocation(fillCoordinates(place));
 		}
 
-		if (!StringUtils.isEmpty(updatePlace.getLocalization().getCity())) {
-			place.getLocalization().setCity(updatePlace.getLocalization().getCity());
+		if (!StringUtils.isEmpty(updatePlace.getAddress().getCity())) {
+			place.getAddress().setCity(updatePlace.getAddress().getCity());
 		}
 
 		repository.save(place);
@@ -64,13 +66,23 @@ public class PlaceBusiness {
 		return repository.findAll();
 	}
 
-	private Double[] fillCoordinates(Place place) {
-		Double[] coordinates;
+	public List<Place> listByLocationNear(String name, Double raio) {
+		Place origin = repository.findByName(name);
+		if (origin == null) {
+			throw new IllegalArgumentException("Could not find any place to the name provided: " + name);
+		}
+
+		return repository.findByLocationNear(origin.getLocation(), new Distance(raio, Metrics.KILOMETERS));
+	}
+
+	private Point fillCoordinates(Place place) {
+		Point coordinates;
 		try {
-			coordinates = geoApiHelper.getLatLong(place.getLocalization().getAddress());
+			Double[] latLong = geoApiHelper.getLatLong(place.getAddress().getAddress());
+			coordinates = new Point(latLong[0], latLong[1]);
 		} catch (Exception e) {
 			throw new IllegalArgumentException(
-					"Could not find the coordinates to the address provided: " + place.getLocalization().getAddress());
+					"Could not find the coordinates to the address provided: " + place.getAddress().getAddress());
 		}
 		return coordinates;
 	}

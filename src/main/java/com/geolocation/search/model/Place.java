@@ -1,6 +1,9 @@
 package com.geolocation.search.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "places")
@@ -10,7 +13,13 @@ public class Place {
 	private String id;
 
 	private String name;
-	private Localization localization = new Localization();
+	private Address address;
+
+	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
+	private Point location;
+
+	public Place() {
+	}
 
 	public String getId() {
 		return id;
@@ -28,11 +37,20 @@ public class Place {
 		this.name = name;
 	}
 
-	public Localization getLocalization() {
-		return localization;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setLocalization(Localization localization) {
-		this.localization = localization;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
+
+	public Point getLocation() {
+		return location;
+	}
+
+	public void setLocation(Point location) {
+		this.location = location;
+	}
+
 }
