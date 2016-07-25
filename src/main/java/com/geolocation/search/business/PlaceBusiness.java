@@ -23,12 +23,7 @@ public class PlaceBusiness {
 
 	public APIMessage add(Place place) {
 
-		try {
-			place.getLocalization().setCoordinates(geoApiHelper.getLatLong(place.getLocalization().getAddress()));
-		} catch (Exception e) {
-			return new APIMessage(Status.DECLINED, "Could not find the coordinates to the address provided.",
-					place.getLocalization().getAddress());
-		}
+		place.getLocalization().setCoordinates(fillCoordinates(place));
 
 		repository.save(place);
 		return new APIMessage(Status.SUCCESS, "Place registered successfully.", place);
@@ -37,12 +32,7 @@ public class PlaceBusiness {
 	public APIMessage add(List<Place> places) {
 
 		for (Place place : places) {
-			try {
-				place.getLocalization().setCoordinates(geoApiHelper.getLatLong(place.getLocalization().getAddress()));
-			} catch (Exception e) {
-				return new APIMessage(Status.DECLINED, "Could not find the coordinates to the address provided.",
-						place.getLocalization().getAddress());
-			}
+			place.getLocalization().setCoordinates(fillCoordinates(place));
 			repository.save(place);
 		}
 
@@ -55,12 +45,7 @@ public class PlaceBusiness {
 
 		if (!StringUtils.isEmpty(updatePlace.getLocalization().getAddress())) {
 			place.getLocalization().setAddress(updatePlace.getLocalization().getAddress());
-			try {
-				place.getLocalization().setCoordinates(geoApiHelper.getLatLong(place.getLocalization().getAddress()));
-			} catch (Exception e) {
-				return new APIMessage(Status.DECLINED, "Could not find the coordinates to the address provided.",
-						place.getLocalization().getAddress());
-			}
+			place.getLocalization().setCoordinates(fillCoordinates(place));
 		}
 
 		if (!StringUtils.isEmpty(updatePlace.getLocalization().getCity())) {
@@ -77,6 +62,17 @@ public class PlaceBusiness {
 
 	public List<Place> listAll() {
 		return repository.findAll();
+	}
+
+	private Double[] fillCoordinates(Place place) {
+		Double[] coordinates;
+		try {
+			coordinates = geoApiHelper.getLatLong(place.getLocalization().getAddress());
+		} catch (Exception e) {
+			throw new IllegalArgumentException(
+					"Could not find the coordinates to the address provided: " + place.getLocalization().getAddress());
+		}
+		return coordinates;
 	}
 
 }
