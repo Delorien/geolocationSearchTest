@@ -64,7 +64,7 @@ public class Place {
 	}
 	
 	public boolean isSame(Place toCompare) {
-		if (isSameName(toCompare) || this.address.isSameAddress(toCompare.getAddress()) || isSameLocation(toCompare)) {
+		if (isSameName(toCompare) && this.address.isSameAddress(toCompare.getAddress())) {
 			return true;
 		}
 		return false;

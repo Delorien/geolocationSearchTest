@@ -20,13 +20,13 @@ import com.geolocation.search.validator.PlaceValidator;
 public class PlaceBusiness {
 
 	@Autowired
-	PlaceRepository repository;
+	private PlaceRepository repository;
 
 	@Autowired
-	GeoApiHelper geoApiHelper;
+	private GeoApiHelper geoApiHelper;
 
 	@Autowired
-	PlaceValidator validator;
+	private PlaceValidator validator;
 
 	public APIMessage add(Place place) {
 
@@ -41,6 +41,7 @@ public class PlaceBusiness {
 
 		for (Place place : places) {
 			place.setLocation(fillCoordinates(place));
+			validator.validateAdd(place);
 			repository.save(place);
 		}
 
@@ -85,7 +86,7 @@ public class PlaceBusiness {
 		Point coordinates;
 		try {
 			Double[] latLong = geoApiHelper.getLatLong(place.getAddress().getAddress());
-			coordinates = new Point(latLong[0], latLong[1]);
+			coordinates = new Point(latLong[1], latLong[0]);
 		} catch (Exception e) {
 			throw new IllegalArgumentException(
 					"Could not find the coordinates to the address provided: " + place.getAddress().getAddress());
