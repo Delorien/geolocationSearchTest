@@ -1,5 +1,7 @@
 package com.geolocation.search.model;
 
+import com.geolocation.search.model.helper.AddressCompareHelper;
+
 public class Address {
 
 	private String address;
@@ -23,4 +25,9 @@ public class Address {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+	public boolean isSameAddress(Address toCompare) {
+		return AddressCompareHelper.isSameAddress(this, toCompare);
+	}
+	
 }
